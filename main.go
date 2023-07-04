@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"influxdbTest/router"
+
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	fmt.Println("hello influx")
+	gin := gin.Default()
+	router.SetRoute(gin)
+	gin.Run(":8080")
 }
