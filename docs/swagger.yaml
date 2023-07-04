@@ -1,0 +1,15 @@
+host: localhost:8080
+info:
+  contact: {}
+  description: influxdb practice
+  title: Ron influxdb swagger demo
+  version: "1.0"
+paths:
+  /v1/hello:
+    get:
+      responses:
+        "200":
+          description: OK
+      tags:
+      - Hello
+swagger: "2.0"

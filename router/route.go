@@ -1,8 +1,7 @@
 package router
 
 import (
-	"influxdbTest/controller"
-
+	"github.com/RRonCChen/influxdbTest/controller"
 	"github.com/gin-gonic/gin"
 )
 
