@@ -28,8 +28,7 @@ func (conn *InfluxdbConn) Insert(record model.Record) {
 
 	point := influxdb2.NewPoint(record.Measurement, record.Tags, record.Fields, record.Time)
 
-	err := writeApi.WritePoint(context.Background(), point)
-	if err != nil {
+	if err := writeApi.WritePoint(context.Background(), point); err != nil {
 		log.Fatal("Influxdb insert fail: ", err)
 	}
 	defer conn.client.Close()
