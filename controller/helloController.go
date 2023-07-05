@@ -8,7 +8,7 @@ import (
 
 // @Tags      Hello
 // @Success   200
-// @Router    /v1/hello [get]
+// @Router    /influx/v1/hello [get]
 func (c *Controller) SayHello(context *gin.Context) {
 	setResponse(context, http.StatusOK, "hello influxdb")
 }

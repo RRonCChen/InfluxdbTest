@@ -7,7 +7,18 @@ import (
 
 func SetRoute(engine *gin.Engine) {
 	controller := controller.NewController()
-
-	v1 := engine.Group("/v1")
-	v1.GET("/hello", controller.SayHello)
+	influx := engine.Group("/influx")
+	{
+		v1 := influx.Group("/v1")
+		{
+			hello := v1.Group("/hello")
+			{
+				hello.GET("", controller.SayHello)
+			}
+			temperature := v1.Group("/temperature")
+			{
+				temperature.POST("", controller.InsertTemperature)
+			}
+		}
+	}
 }

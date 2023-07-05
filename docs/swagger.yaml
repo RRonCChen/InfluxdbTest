@@ -1,3 +1,13 @@
+definitions:
+  model.TemperatureRecord:
+    properties:
+      deviceId:
+        type: string
+      location:
+        type: string
+      temperature:
+        type: number
+    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -5,11 +15,27 @@ info:
   title: Ron influxdb swagger demo
   version: "1.0"
 paths:
-  /v1/hello:
+  /influx/v1/hello:
     get:
       responses:
         "200":
           description: OK
       tags:
       - Hello
+  /influx/v1/temperature:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: location deviceId temperature
+        in: body
+        name: temperatureRecord
+        required: true
+        schema:
+          $ref: '#/definitions/model.TemperatureRecord'
+      responses:
+        "200":
+          description: OK
+      tags:
+      - Temperature
 swagger: "2.0"
