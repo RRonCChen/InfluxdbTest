@@ -53,6 +53,37 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/influx/v1/temperature/avg/{location}/{deviceId}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Temperature"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "deviceId",
+                        "name": "deviceId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "location",
+                        "name": "location",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
         }
     },
     "definitions": {

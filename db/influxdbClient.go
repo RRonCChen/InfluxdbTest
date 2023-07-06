@@ -6,6 +6,7 @@ import (
 
 	"github.com/RRonCChen/influxdbTest/model"
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
+	"github.com/influxdata/influxdb-client-go/v2/api"
 )
 
 const (
@@ -32,4 +33,21 @@ func (conn *InfluxdbConn) Insert(record model.Record) {
 		log.Fatal("Influxdb insert fail: ", err)
 	}
 	defer conn.client.Close()
+}
+
+func (conn *InfluxdbConn) Query(query string) *api.QueryTableResult {
+	queryAPI := conn.client.QueryAPI(org)
+
+	log.Printf("query : %s \n", query)
+
+	result, err := queryAPI.Query(context.Background(), query)
+	if err == nil {
+		if result.Err() != nil {
+			log.Printf("query error: %s\n", result.Err().Error())
+			panic(result.Err())
+		}
+	} else {
+		panic(err)
+	}
+	return result
 }

@@ -24,3 +24,21 @@ func (c *Controller) InsertTemperature(context *gin.Context) {
 	service.InsertTemperature(body)
 	setResponse(context, http.StatusOK, "insert successd")
 }
+
+// @Tags      Temperature
+// @Success   200
+// @Accept    json
+// @Param     deviceId path string true "deviceId"
+// @Param     location path string true "location"
+// @Router    /influx/v1/temperature/avg/{location}/{deviceId} [get]
+func (c *Controller) GetAvgTempertureByIdAndLocation(context *gin.Context) {
+	deviceId := context.Param("deviceId")
+	location := context.Param("location")
+	if avg, err := service.GetAvgTempertureByIdAndLocation(deviceId, location); err != nil {
+		context.Abort()
+		context.Error(err)
+		return
+	} else {
+		setResponse(context, http.StatusOK, avg)
+	}
+}

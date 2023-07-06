@@ -11,10 +11,10 @@ func NewController() *Controller {
 }
 
 type Response struct {
-	Code    int    `json:"code"`
-	Message string `json:"message"`
+	Code    int `json:"code"`
+	Message any `json:"message"`
 }
 
-func setResponse(context *gin.Context, code int, message string) {
+func setResponse(context *gin.Context, code int, message any) {
 	context.JSON(code, Response{Code: code, Message: message})
 }

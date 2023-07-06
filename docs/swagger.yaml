@@ -38,4 +38,24 @@ paths:
           description: OK
       tags:
       - Temperature
+  /influx/v1/temperature/avg/{location}/{deviceId}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: deviceId
+        in: path
+        name: deviceId
+        required: true
+        type: string
+      - description: location
+        in: path
+        name: location
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+      tags:
+      - Temperature
 swagger: "2.0"

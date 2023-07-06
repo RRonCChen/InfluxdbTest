@@ -3,6 +3,7 @@ package service
 import (
 	"time"
 
+	"github.com/RRonCChen/influxdbTest/dao"
 	"github.com/RRonCChen/influxdbTest/db"
 	"github.com/RRonCChen/influxdbTest/model"
 )
@@ -29,4 +30,9 @@ func getTags(temperatureReocrd model.TemperatureRecord) map[string]string {
 	tags["location"] = temperatureReocrd.Location
 	tags["deviceId"] = temperatureReocrd.DeviceId
 	return tags
+}
+
+func GetAvgTempertureByIdAndLocation(deviceId string, location string) (float64, error) {
+	temperatureDao := dao.TemperatureDao{}
+	return temperatureDao.GetAvgTempertureByIdAndLocation(deviceId, location)
 }
