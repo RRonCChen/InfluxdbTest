@@ -1,0 +1,5 @@
+influxdb:
+  token: "MLKxt6MvY7-hO4ifdmsHe1nyW0mvFx8uqVdpU2aJDfKUTnPuMYMvkXmIEhrTXX7VQBIBFOd9Vh7XRgb58KK1JA=="
+  url: "http://localhost:8086"
+  org: "RonTest"
+  bucket: "RonTest"

@@ -4,16 +4,10 @@ import (
 	"context"
 	"log"
 
+	"github.com/RRonCChen/influxdbTest/config"
 	"github.com/RRonCChen/influxdbTest/model"
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
 	"github.com/influxdata/influxdb-client-go/v2/api"
-)
-
-const (
-	token  = "MLKxt6MvY7-hO4ifdmsHe1nyW0mvFx8uqVdpU2aJDfKUTnPuMYMvkXmIEhrTXX7VQBIBFOd9Vh7XRgb58KK1JA=="
-	url    = "http://localhost:8086"
-	bucket = "RonTest"
-	org    = "RonTest"
 )
 
 type InfluxdbConn struct {
@@ -21,11 +15,13 @@ type InfluxdbConn struct {
 }
 
 func InitInfluxConn() *InfluxdbConn {
-	return &InfluxdbConn{influxdb2.NewClient(url, token)}
+	conf := config.LoadInfluxdbConfig()
+	return &InfluxdbConn{influxdb2.NewClient(conf.Url, conf.Token)}
 }
 
 func (conn *InfluxdbConn) Insert(record model.Record) {
-	writeApi := conn.client.WriteAPIBlocking(org, bucket)
+	conf := config.LoadInfluxdbConfig()
+	writeApi := conn.client.WriteAPIBlocking(conf.Org, conf.Bucket)
 
 	point := influxdb2.NewPoint(record.Measurement, record.Tags, record.Fields, record.Time)
 
@@ -36,7 +32,8 @@ func (conn *InfluxdbConn) Insert(record model.Record) {
 }
 
 func (conn *InfluxdbConn) Query(query string) *api.QueryTableResult {
-	queryAPI := conn.client.QueryAPI(org)
+	conf := config.LoadInfluxdbConfig()
+	queryAPI := conn.client.QueryAPI(conf.Org)
 
 	log.Printf("query : %s \n", query)
 
